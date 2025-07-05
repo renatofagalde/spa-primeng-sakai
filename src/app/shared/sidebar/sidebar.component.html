@@ -1,0 +1,60 @@
+<div class="sidebar">
+  <!-- User Profile Section -->
+  <div class="user-profile">
+    <div class="user-avatar">
+      <p-avatar
+        [label]="userInitials"
+        size="large"
+        shape="circle"
+        styleClass="bg-primary text-white">
+      </p-avatar>
+    </div>
+
+    <div class="user-info">
+      <div class="user-name">{{ userName }}</div>
+      <div class="user-role">{{ userRole }}</div>
+      <div class="user-email">{{ userEmail }}</div>
+    </div>
+  </div>
+
+  <!-- Menu Items -->
+  <div class="menu-section">
+    <div class="menu-header">
+      <span>MENU PRINCIPAL</span>
+    </div>
+
+    <div class="menu-items">
+      <div
+        *ngFor="let item of menuItems"
+        class="menu-item"
+        [class.active]="router.url === item.route"
+        (click)="navigateTo(item.route)">
+
+        <div class="menu-item-content">
+          <i [ngClass]="item.icon + ' menu-icon'"></i>
+          <span class="menu-label">{{ item.label }}</span>
+
+          <p-badge
+            *ngIf="item.badge"
+            [value]="item.badge"
+            severity="warn"
+            size="small">
+          </p-badge>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Actions -->
+  <div class="user-actions">
+    <p-button
+      label="Sair"
+      icon="pi pi-sign-out"
+      severity="secondary"
+      text="true"
+      size="small"
+      (click)="logout()"
+      styleClass="w-full">
+    </p-button>
+  </div>
+</div>

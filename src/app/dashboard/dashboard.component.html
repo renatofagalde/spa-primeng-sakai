@@ -1,0 +1,172 @@
+<div class="grid">
+  <!-- Header do Dashboard -->
+  <div class="col-12">
+    <div class="card">
+      <h1 class="text-900 font-bold text-6xl mb-4 text-center">Dashboard</h1>
+      <p class="text-600 text-xl text-center line-height-3 mb-0">
+        Bem-vindo ao painel administrativo com dados em tempo real
+      </p>
+    </div>
+  </div>
+
+  <!-- Cards de Métricas -->
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3">Usuários</span>
+          <div class="text-900 font-medium text-xl">{{ users.length }}</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
+             style="width:2.5rem;height:2.5rem">
+          <i class="pi pi-users text-blue-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-green-500 font-medium">+12%</span>
+      <span class="text-500">desde última semana</span>
+    </div>
+  </div>
+
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3">Vendas</span>
+          <div class="text-900 font-medium text-xl">R$ 12.400</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-orange-100 border-round"
+             style="width:2.5rem;height:2.5rem">
+          <i class="pi pi-shopping-cart text-orange-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-green-500 font-medium">+8%</span>
+      <span class="text-500">desde ontem</span>
+    </div>
+  </div>
+
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3">Produtos</span>
+          <div class="text-900 font-medium text-xl">152</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-cyan-100 border-round"
+             style="width:2.5rem;height:2.5rem">
+          <i class="pi pi-box text-cyan-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-green-500 font-medium">+24%</span>
+      <span class="text-500">desde mês passado</span>
+    </div>
+  </div>
+
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+      <div class="flex justify-content-between mb-3">
+        <div>
+          <span class="block text-500 font-medium mb-3">Performance</span>
+          <div class="text-900 font-medium text-xl">98.5%</div>
+        </div>
+        <div class="flex align-items-center justify-content-center bg-purple-100 border-round"
+             style="width:2.5rem;height:2.5rem">
+          <i class="pi pi-chart-line text-purple-500 text-xl"></i>
+        </div>
+      </div>
+      <span class="text-green-500 font-medium">+1.2%</span>
+      <span class="text-500">desde última hora</span>
+    </div>
+  </div>
+
+  <!-- Gráficos -->
+  <div class="col-12 xl:col-6">
+    <div class="card">
+      <h5>Vendas por Mês</h5>
+      <p-chart type="line" [data]="chartData" [options]="chartOptions"></p-chart>
+    </div>
+  </div>
+
+  <div class="col-12 xl:col-6">
+    <div class="card">
+      <h5>Dispositivos dos Usuários</h5>
+      <p-chart type="pie" [data]="pieData" [options]="pieOptions"></p-chart>
+    </div>
+  </div>
+
+  <!-- Tabela de Usuários -->
+  <div class="col-12">
+    <div class="card">
+      <h5>Usuários do Sistema (ReqRes API)</h5>
+      <p-table [value]="users"
+               [loading]="loading"
+               [paginator]="true"
+               [rows]="10"
+               [showCurrentPageReport]="true"
+               currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+               [tableStyle]="{'min-width': '50rem'}"
+               styleClass="p-datatable-gridlines">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Avatar</th>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-user>
+          <tr>
+            <td>
+              <p-avatar [image]="user.avatar"
+                        shape="circle"
+                        size="large">
+              </p-avatar>
+            </td>
+            <td>{{ user.id }}</td>
+            <td>{{ user.first_name }} {{ user.last_name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <p-tag [value]="'Ativo'"
+                     severity="success">
+              </p-tag>
+            </td>
+            <td>
+              <p-button icon="pi pi-eye"
+                        severity="info"
+                        [text]="true"
+                        [rounded]="true"
+                        size="small"
+                        pTooltip="Visualizar">
+              </p-button>
+
+              <p-button icon="pi pi-pencil"
+                        severity="warn"
+                        [text]="true"
+                        [rounded]="true"
+                        size="small"
+                        pTooltip="Editar">
+              </p-button>
+
+              <p-button icon="pi pi-trash"
+                        severity="danger"
+                        [text]="true"
+                        [rounded]="true"
+                        size="small"
+                        pTooltip="Excluir">
+              </p-button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6" class="text-center">Nenhum usuário encontrado</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
