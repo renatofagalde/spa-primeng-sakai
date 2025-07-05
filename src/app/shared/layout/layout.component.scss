@@ -1,0 +1,15 @@
+.layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 280px;
+  overflow-y: auto;
+  background: #f8f9fa;
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
+}
